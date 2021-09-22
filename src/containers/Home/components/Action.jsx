@@ -13,12 +13,16 @@ const Action = ({ post, subject }) => {
     navigator.share({
       title: `PWA News - ${subject}`,
       text: title,
-      url: URL,
+      url: `${URL}/${subject}/${id}`,
     });
   };
 
   const copyInfo = () => {
-    navigator.clipboard.writeText(`${title} - *Learn more about in* ${URL}/${subject}/${id}`);
+    navigator.clipboard.writeText(`${title} - *Learn more about in* ${URL}/${subject}/${id}`).then(() => {
+      console.log('Copiado com sucesso!');
+    }, () => {
+      console.log('Não foi possível copiar.');
+    });
   };
 
   const renderActions = () => {
@@ -27,14 +31,14 @@ const Action = ({ post, subject }) => {
 
     return (
       <img alt="icon" src={icon} className="share-icon" onClick={action} />
-    )
-  }
+    );
+  };
 
   return (
     <div className="share">
       {renderActions()}
     </div>
-  )
+  );
 };
 
 export default memo(Action);
